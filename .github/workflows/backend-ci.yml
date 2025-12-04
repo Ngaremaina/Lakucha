@@ -18,13 +18,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      # Java 21 setup
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
           cache: maven
 
+      # Validate wrapper files
+      - name: Validate Maven Wrapper
+        working-directory: backend
+        run: mvn -N wrapper:validate
+
+      # Build, run tests & package
       - name: Build & Test Backend
         working-directory: backend
-        run: mvn clean verify
+        run: mvn clean verify --batch-mode
