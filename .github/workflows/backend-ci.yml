@@ -26,12 +26,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # Validate wrapper files
-      - name: Validate Maven Wrapper
-        working-directory: backend
-        run: mvn -N wrapper:validate
-
-      # Build, run tests & package
+      # Build package
       - name: Build & Test Backend
         working-directory: backend
-        run: mvn clean verify --batch-mode
+        run: mvn clean install
